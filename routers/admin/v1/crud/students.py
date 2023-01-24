@@ -29,8 +29,6 @@ def create_student(db: Session, student: schemas.StudentBase):
 
 
 # gets all the students with searching and sorting od first_name,last_name, class_no,stream,roll_no
-
-
 def get_all_students(db: Session):
 
     db_student = (
@@ -151,7 +149,7 @@ def get_student(db: Session, student_id: str):
     return db_student
 
 
-# updates player from the player id
+# updates student from the id
 def update_student(db: Session, student_id: str, student: schemas.StudentUpdate):
     db_student = get_student_by_id(db=db, student_id=student_id)
 
@@ -167,7 +165,7 @@ def update_student(db: Session, student_id: str, student: schemas.StudentUpdate)
     return db_student
 
 
-# deletes player from the id
+# deletes student from the id
 def delete_student(db: Session, student_id: str):
     db_student = get_student_by_id(db=db, student_id=student_id)
 
