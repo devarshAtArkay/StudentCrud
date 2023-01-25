@@ -81,8 +81,7 @@ def verify_token(db: Session, token: str):
 # A create password function which encryptes a password and returns it
 def _create_password(password):
     password = bytes(password, "utf-8")
-    salt = bcrypt.gensalt()
-    password = bcrypt.hashpw(password, salt)
+    password = bcrypt.hashpw(password, config['salt'])
     password = password.decode("utf-8")
     return password
 
