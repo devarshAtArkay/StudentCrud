@@ -83,7 +83,7 @@ class StudentUpdate(BaseModel):
     email: str = Field(default=None, min_length=3, max_length=50)
     gender: GenderEnum
     class_no: int = Field(default=None)
-    streams: str = StreamEnum
+    streams: StreamEnum
     # validating email using email validator
     @validator("email")
     def valid_email(cls, email):
