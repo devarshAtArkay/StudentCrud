@@ -9,6 +9,12 @@
 - Create an empty database in database server
 - Update values in `config.py`
 
+## Generate Salt value
+- Open terminal
+- `python3`
+- `import bcrypt`
+- `bcrypt.gensalt(rounds=12)`
+- Copy value and update `salt` key in `config.py`
 
 ## Create a symmetric key for JWT encryption
 - Open terminal
