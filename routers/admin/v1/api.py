@@ -10,8 +10,7 @@ import routers.admin.v1.crud.students as students
 
 
 #A post request for login 
-@router.post('/students/login', response_model=schemas.StudentLoginResponse,tags=["Students"])
-
+@router.post('/login', status_code= status.HTTP_200_OK ,response_model=schemas.StudentLoginResponse,tags=["Student-Authentication"])
 def login_student(
     student: schemas.StudentLogin,
     db: Session = Depends(get_db)
@@ -20,7 +19,7 @@ def login_student(
     return db_student
 
 # A post request for creating a student
-@router.post("/students", tags=["Students"])
+@router.post("/students",status_code=status.HTTP_201_CREATED ,tags=["Students"])
 def create_student(student: schemas.StudentBase, db: Session = Depends(get_db)):
 
     return students.create_student(db=db, student=student)
@@ -28,7 +27,7 @@ def create_student(student: schemas.StudentBase, db: Session = Depends(get_db)):
 
 # A get request for getting the students with skip and limit,sortby,search,order
 @router.get("/students", response_model=schemas.StudentList, tags=["Students"])
-def get_students(
+def get_student_list(
     skip: int = 0,
     limit: int = 10,
     sort_by: str = Query(
@@ -50,14 +49,14 @@ def get_students(
     db: Session = Depends(get_db),
 ):
     students.verify_token(db=db,token=token)
-    all_students = students.get_students(
+    all_students = students.get_student_list(
         db=db, skip=skip, limit=limit, sort_by=sort_by, order=order, search=search
     )
     return all_students
 
 
 @router.get(
-    "/students/all_students", response_model=List[schemas.StudentShow], tags=["Students"]
+    "/students/all", response_model=List[schemas.StudentShow], tags=["Students"]
 )
 def get_all_students( token:str = Header(None),db: Session = Depends(get_db)):
     students.verify_token(db=db,token=token)
@@ -69,7 +68,7 @@ def get_all_students( token:str = Header(None),db: Session = Depends(get_db)):
 @router.get(
     "/students/{student_id}", response_model=schemas.StudentShow, tags=["Students"]
 )
-def get_player_by_id(
+def get_student(
     student_id: str = Path(..., min_length=36, max_length=36),
     token:str = Header(None),
     db: Session = Depends(get_db),
@@ -91,12 +90,14 @@ def update_student(
     student_id: str = Path(...,  min_length=36, max_length=36),
 ):
     students.verify_token(db=db,token=token)
-    return students.update_student(db=db, student_id=student_id, student=student)
+    db_student = students.update_student(db=db, student_id=student_id, student=student)
+    return db_student
 
 
 # A delete request for deleting a student from its id
 @router.delete(
         "/students/{student_id}",
+        status_code=status.HTTP_204_NO_CONTENT,
         tags=["Students"]
 )
 def delete_student(

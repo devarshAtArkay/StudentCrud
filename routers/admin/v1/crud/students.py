@@ -117,10 +117,9 @@ def sign_in(db: Session, student: schemas.StudentLogin):
     password = bytes(student.password, "utf-8")
     if not bcrypt.checkpw(password, hashed):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
-    student = object_as_dict(db_student)
-
-    student["token"] = get_token(db_student.id, db_student.email)
-    return student
+   
+    db_student.token = get_token(db_student.id, db_student.email)
+    return db_student
 
 
 # gets all the students
@@ -136,7 +135,7 @@ def get_all_students(db: Session):
 
 
 # gets all the students with searching and sorting od first_name,last_name, class_no,stream,roll_no
-def get_students(
+def get_student_list(
     db: Session,
     skip: int = 0,
     limit: int = 10,
