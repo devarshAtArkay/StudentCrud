@@ -11,6 +11,13 @@ class GenderEnum(enum.Enum):
     Other = "Other"
 
 
+# Enum class which has different streams
+class StreamEnum(enum.Enum):
+    Commerce = "Commerce"
+    Science = "Science"
+    Arts = "Arts"
+
+
 # Student model which has different student releted columns
 class StudentModel(Base):
 
@@ -20,10 +27,11 @@ class StudentModel(Base):
     first_name = Column(String(50), default=None)
     last_name = Column(String(50), default=None)
     email = Column(String(50), default=None)
+    password = Column(String(255), default=None)
     roll_no = Column(String(10), default=None)
     gender = Column(Enum(GenderEnum))
     class_no = Column(INTEGER(), default=None)
-    stream = Column(String(20), default=None)
+    streams = Column(Enum(StreamEnum), default=None)
     is_deleted = Column(Boolean, default=False)
     created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now)
