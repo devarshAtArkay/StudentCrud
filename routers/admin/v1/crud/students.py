@@ -261,6 +261,7 @@ def update_student(db: Session, student_id: str, student: schemas.StudentUpdate)
     db_student.last_name = student.last_name
     db_student.email = student.email
     db_student.gender = student.gender
+    db_student.phone_no = student.phone_no
     db_student.class_no = student.class_no
     db_student.streams = student.streams
     db_student.updated_at = now()

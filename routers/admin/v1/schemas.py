@@ -14,6 +14,7 @@ class StudentBase(BaseModel):
     password: str = Field(min_length=3, max_length=50)
     roll_no: str = Field(default=None, min_length=1, max_length=10)
     gender: GenderEnum
+    phone_no:str = Field(min_length=10,max_length=13)
     class_no: int = Field(default=None)
     streams: StreamEnum
 
@@ -59,6 +60,7 @@ class StudentShow(BaseModel):
     email: str
     roll_no: str
     gender: GenderEnum
+    phone_no:str = None
     class_no: int
 
     class Config:
@@ -82,6 +84,7 @@ class StudentUpdate(BaseModel):
     last_name: str = Field(default=None, min_length=3, max_length=50)
     email: str = Field(default=None, min_length=3, max_length=50)
     gender: GenderEnum
+    phone_no:str = Field(min_length=10,max_length=13)
     class_no: int = Field(default=None)
     streams: StreamEnum
     # validating email using email validator
