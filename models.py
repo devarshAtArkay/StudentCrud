@@ -30,7 +30,7 @@ class StudentModel(Base):
     password = Column(String(255), default=None)
     roll_no = Column(String(10), default=None)
     gender = Column(Enum(GenderEnum))
-    phone_no = Column(String(13))
+    phone_num = Column(String(13))
     class_no = Column(INTEGER(), default=None)
     streams = Column(Enum(StreamEnum), default=None)
     is_deleted = Column(Boolean, default=False)
